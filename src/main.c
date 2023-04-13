@@ -16,7 +16,7 @@ int main(void)
     int screenWidth = 800;
     int screenHeight = 450;
 
-    InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+    InitWindow(screenWidth, screenHeight, "Maybe Flappy");
 
     SetTargetFPS(60);
 
@@ -36,7 +36,7 @@ int main(void)
 
             DrawRectangle(box.x, box.y, box.width, box.height, RED);
 
-            DrawText("this is DEFINITELY gonna work!", 190, 200, 20, LIGHTGRAY);
+            DrawText("Hello world stuff!", 190, 200, 20, LIGHTGRAY);
 
         EndDrawing();
     }

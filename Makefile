@@ -11,8 +11,8 @@ RAYLIBDIR = $(HOME)/raylib/src
 LIBS = -lraylib -lm -lpthread -ldl -lX11
 
 # Source files
-SOURCES = $(wildcard $(SRCDIR)/*.cpp)
-OBJECTS = $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(SOURCES))
+SOURCES = $(wildcard $(SRCDIR)/*.c)
+OBJECTS = $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SOURCES))
 
 # Output binary
 TARGET = $(OBJDIR)/mygame
@@ -20,7 +20,7 @@ TARGET = $(OBJDIR)/mygame
 all: $(TARGET)
 
 # Compile object files
-$(OBJDIR)/%.o: $(SRCDIR)/%.cpp
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Link object files

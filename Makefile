@@ -10,6 +10,9 @@ RAYLIBDIR = $(HOME)/raylib/src
 # Libraries and linking
 LIBS = -lraylib -lm -lpthread -ldl -lX11
 
+# Create build directory if it doesn't exist
+$(shell mkdir -p $(OBJDIR))
+
 # Source files
 SOURCES = $(wildcard $(SRCDIR)/*.c)
 OBJECTS = $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SOURCES))

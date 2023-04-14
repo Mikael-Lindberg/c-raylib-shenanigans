@@ -1,9 +1,5 @@
 #include "raylib.h"
 
-static float PLACE_AT_FLOOR(float input) {
-    return input / 2.0f;
-}
-
 struct Tile {
     Vector3 position;
     Vector3 size;
@@ -12,15 +8,15 @@ struct Tile {
 };
 
 void draw_tile(struct Tile *tile) {
-    DrawCube(tile -> position, tile -> size.x, tile -> size.y, tile -> size.z, tile -> color);
-    DrawCubeWires(tile -> position, tile -> size.x, tile -> size.y, tile -> size.z, tile -> wire_color);
+    DrawCubeV(tile -> position, tile -> size, tile -> color);
+    DrawCubeWiresV(tile -> position, tile -> size, tile -> wire_color);
 }
 
 int main(void) {
     const int screenWidth = 800;
     const int screenHeight = 450;
 
-    InitWindow(screenWidth, screenHeight, "raylib [core] example - 3d camera free");
+    InitWindow(screenWidth, screenHeight, "c-raylib-shenanigans");
 
     Camera3D camera = { 0 };
     camera.position = (Vector3){ 4.0f, 8.0f, 16.0f };

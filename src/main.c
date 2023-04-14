@@ -13,8 +13,8 @@ void draw_tile(struct Tile *tile) {
 }
 
 int main(void) {
-    const int screenWidth = 800;
-    const int screenHeight = 450;
+    const int screenWidth = 1400;
+    const int screenHeight = 850;
 
     InitWindow(screenWidth, screenHeight, "c-raylib-shenanigans");
 
@@ -45,12 +45,10 @@ int main(void) {
     };
 
     DisableCursor();
-    //ToggleFullscreen();
 
     SetTargetFPS(60);
 
     while (!WindowShouldClose()) {
-        //UpdateCamera(&camera, CAMERA_FREE);
         DrawFPS(5, 5);
 
         BeginDrawing();

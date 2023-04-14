@@ -1,47 +1,79 @@
 #include "raylib.h"
 
-struct Box {
-    int x;
-    int y;
-    int width;
-    int height;
+static float PLACE_AT_FLOOR(float input) {
+    return input / 2.0f;
+}
 
-    int min_force;
-    int cur_force;
-    int max_force;
+struct Tile {
+    Vector3 position;
+    Vector3 size;
+    Color color;
+    Color wire_color;
 };
 
-int main(void)
-{
-    int screenWidth = 800;
-    int screenHeight = 450;
+void draw_tile(struct Tile *tile) {
+    DrawCube(tile -> position, tile -> size.x, tile -> size.y, tile -> size.z, tile -> color);
+    DrawCubeWires(tile -> position, tile -> size.x, tile -> size.y, tile -> size.z, tile -> wire_color);
+}
 
-    InitWindow(screenWidth, screenHeight, "Maybe Flappy");
+int main(void) {
+    const int screenWidth = 800;
+    const int screenHeight = 450;
+
+    InitWindow(screenWidth, screenHeight, "raylib [core] example - 3d camera free");
+
+    Camera3D camera = { 0 };
+    camera.position = (Vector3){ 4.0f, 8.0f, 16.0f };
+    camera.target = (Vector3){ 0.0f, 0.0f, 0.0f };
+    camera.up = (Vector3){ 0.0f, 1.0f, 0.0f };
+    camera.fovy = 45.0f;
+    camera.projection = CAMERA_PERSPECTIVE;
+
+    Tile tile = Tile {
+        { 1.0f, 0.1f, 1.0f },
+        { 2.0f, 0.2f, 2.0f },
+        RED,
+        BLACK
+    };
+    Tile tile2 = Tile {
+        { 3.0f, 0.75f, 1.0f },
+        { 2.0f, 1.5f, 2.0f },
+        GREEN,
+        BLACK
+    };
+    Tile tile3 = Tile {
+        { -1.0f, 0.75f, 1.0f },
+        { 2.0f, 1.5f, 2.0f },
+        BLUE,
+        BLACK
+    };
+
+    DisableCursor();
+    //ToggleFullscreen();
 
     SetTargetFPS(60);
 
-    Box box = {100, 100, 50, 50, -300, 0, 600};
-
-    int decrementValue = 10;
-    float timeCounter = 0.0f;
-
-    while (!WindowShouldClose())
-    {
-        timeCounter -= GetFrameTime();
-        box.cur_force += decrementValue;
+    while (!WindowShouldClose()) {
+        //UpdateCamera(&camera, CAMERA_FREE);
+        DrawFPS(5, 5);
 
         BeginDrawing();
 
             ClearBackground(RAYWHITE);
 
-            DrawRectangle(box.x, box.y, box.width, box.height, RED);
+            BeginMode3D(camera);
+                
+                draw_tile(&tile);
+                draw_tile(&tile2);
+                draw_tile(&tile3);
 
-            DrawText("Hello world stuff!", 190, 200, 20, LIGHTGRAY);
+                DrawGrid(20, 2.0f);
+
+            EndMode3D();
 
         EndDrawing();
     }
 
     CloseWindow();
-
     return 0;
 }
